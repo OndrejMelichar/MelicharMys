@@ -46,13 +46,19 @@ namespace MelicharMys
 
         private void _notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            if (this.contextWindow != null)
+            if (this.contextWindow == null)
             {
-                ContextWindow contextWindow = new ContextWindow();
-                contextWindow.Show();
+                this.contextWindow = new ContextWindow();
+                this.contextWindow.Closed += (s, e2) => this.contextWindowClose();
+                this.contextWindow.Show();
             }
             
             //TODO: při otevření okna podruhé by se mělo zavřít předchozí (anebo se zamezit otevření dalšího)
+        }
+
+        private void contextWindowClose()
+        {
+            this.contextWindow = null;
         }
 
         private void ExitApplication()
