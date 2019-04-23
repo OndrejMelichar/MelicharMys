@@ -9,15 +9,23 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Content="ContextWindow" FontSize="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-        <StackPanel Orientation="Vertical"  Margin="16,0,16,0">
-            <Label Content="Citlivost myši" />
+        <StackPanel Orientation="Vertical"  Margin="16">
+            <Label Content="Citlivost myši" HorizontalAlignment="Left"/>
+            <Slider x:Name="mouseSpeedSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal">
-                <Slider x:Name="mouseSpeedSlider" Width="256" ValueChanged="mouseSpeedSlider_ValueChanged" Maximum="20" TickPlacement="BottomRight" TickFrequency="1" Value="5" IsSnapToTickEnabled="True" />
-                <TextBox x:Name="mouseSpeedValueTextBox" Margin="16,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="48" />
+                <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
                 <Button Click="resetMouseSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
-        
-        
+
+        <StackPanel Orientation="Vertical"  Margin="16">
+            <Label Content="Citlivost kolečka myši (počet řádků při scrollování):" HorizontalAlignment="Left" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetScrollSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+            </StackPanel>
+        </StackPanel>
+
+
     </StackPanel>
 </Window>

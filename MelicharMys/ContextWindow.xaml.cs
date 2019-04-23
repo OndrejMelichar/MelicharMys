@@ -23,11 +23,12 @@ namespace MelicharMys
         public ContextWindow()
         {
             InitializeComponent();
-            mouseSpeedSlider.Value = MouseOptions.MouseSpeed.GetMouseSpeed();
+            mouseSpeedValueTextBox.Text = MouseOptions.MouseSpeed.GetMouseSpeed().ToString();
+            scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
         }
         
 
-        /* eventy */
+        /* mouseSpeed */
         private void mouseSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (mouseSpeedSlider != null && mouseSpeedValueTextBox != null)
@@ -70,7 +71,36 @@ namespace MelicharMys
         private void resetMouseSpeed_Click(object sender, RoutedEventArgs e)
         {
             MouseOptions.MouseSpeed.SetDefaultMouseSpeed();
-            mouseSpeedSlider.Value = MouseOptions.MouseSpeed.GetMouseSpeed();
+            mouseSpeedValueTextBox.Text = MouseOptions.MouseSpeed.GetMouseSpeed().ToString();
+        }
+
+        /* scrollSpeed */
+
+        private void scrollSpeedValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (scrollSpeedValueTextBox != null)
+            {
+                int newSpeed;
+                bool parse = int.TryParse(scrollSpeedValueTextBox.Text, out newSpeed);
+
+                if (parse)
+                {
+                    if (newSpeed < 0) //TODO: může tam být "0"? nenastavit minimum na "1"?
+                    {
+                        newSpeed = 0;
+                        scrollSpeedValueTextBox.Text = newSpeed.ToString();
+                    }
+                    
+                    MouseOptions.ScrollSpeed.SetScrollSpeed(newSpeed);
+                }
+            }
+
+        }
+
+        private void resetScrollSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            MouseOptions.ScrollSpeed.SetDefaultScrollSpeed();
+            mouseSpeedSlider.Value = MouseOptions.ScrollSpeed.GetScrollSpeed();
         }
     }
 }
