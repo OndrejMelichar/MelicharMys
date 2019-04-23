@@ -9,10 +9,15 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Content="ContextWindow" FontSize="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-        <StackPanel Orientation="Horizontal">
-            <Slider  Maximum="30" TickPlacement="BottomRight" TickFrequency="1" Value="5" IsSnapToTickEnabled="True" Name="slValue" />
-            <TextBox x:Name="mouseSpeedValueTextBox" Width="40" />
+        <StackPanel Orientation="Vertical"  Margin="16,0,16,0">
+            <Label Content="Citlivost myši" />
+            <StackPanel Orientation="Horizontal">
+                <Slider x:Name="mouseSpeedSlider" Width="256" ValueChanged="mouseSpeedSlider_ValueChanged" Maximum="20" TickPlacement="BottomRight" TickFrequency="1" Value="5" IsSnapToTickEnabled="True" />
+                <TextBox x:Name="mouseSpeedValueTextBox" Margin="16,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="48" />
+                <Button Click="resetMouseSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+            </StackPanel>
         </StackPanel>
+        
         
     </StackPanel>
 </Window>

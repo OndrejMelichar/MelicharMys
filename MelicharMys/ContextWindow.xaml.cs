@@ -23,19 +23,54 @@ namespace MelicharMys
         public ContextWindow()
         {
             InitializeComponent();
+            mouseSpeedSlider.Value = MouseOptions.MouseSpeed.GetMouseSpeed();
+        }
+        
 
-            MouseOptions.InternalSetMouseSpeed(30);
-            mouseSpeedValueTextBox.Text = MouseOptions.CurrentSpeed.ToString();
+        /* eventy */
+        private void mouseSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (mouseSpeedSlider != null && mouseSpeedValueTextBox != null)
+            {
+                int newSpeed = (int)mouseSpeedSlider.Value;
+                mouseSpeedValueTextBox.Text = newSpeed.ToString();
+                MouseOptions.MouseSpeed.SetMouseSpeed(newSpeed);
+            }
+            
         }
 
-        [DllImport("User32.dll")]
-        static extern Boolean SystemParametersInfo(
-            UInt32 uiAction,
-            UInt32 uiParam,
-            IntPtr pvParam,
-            UInt32 fWinIni);
-        
-        
+        private void mouseSpeedValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (mouseSpeedSlider != null && mouseSpeedValueTextBox != null)
+            {
+                int newSpeed;
+                bool parse = int.TryParse(mouseSpeedValueTextBox.Text, out newSpeed);
 
+                if (parse)
+                {
+                    if (newSpeed < 0)
+                    {
+                        newSpeed = 0;
+                        mouseSpeedValueTextBox.Text = newSpeed.ToString();
+                    }
+
+                    if (newSpeed > 20)
+                    {
+                        newSpeed = 20;
+                        mouseSpeedValueTextBox.Text = newSpeed.ToString();
+                    }
+
+                    mouseSpeedSlider.Value = newSpeed;
+                    MouseOptions.MouseSpeed.SetMouseSpeed(newSpeed);
+                }
+            } 
+            
+        }
+
+        private void resetMouseSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            MouseOptions.MouseSpeed.SetDefaultMouseSpeed();
+            mouseSpeedSlider.Value = MouseOptions.MouseSpeed.GetMouseSpeed();
+        }
     }
 }
