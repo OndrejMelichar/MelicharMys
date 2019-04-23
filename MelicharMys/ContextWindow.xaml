@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:MelicharMys"
         mc:Ignorable="d"
         Title="ContextWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Content="ContextWindow" FontSize="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-    </Grid>
+
+        <StackPanel Orientation="Horizontal">
+            <Slider  Maximum="30" TickPlacement="BottomRight" TickFrequency="1" Value="5" IsSnapToTickEnabled="True" Name="slValue" />
+            <TextBox x:Name="mouseSpeedValueTextBox" Width="40" />
+        </StackPanel>
+        
+    </StackPanel>
 </Window>
