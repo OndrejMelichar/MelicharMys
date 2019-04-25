@@ -32,8 +32,6 @@ namespace MelicharMys
         private void setWindowLocation()
         {
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            /*this.Left = desktopWorkingArea.Right - this.Width;
-            this.Top = desktopWorkingArea.Bottom - this.Height;*/
 
             System.Drawing.Point mousePoint = MouseOptions.MousePosition.GetMousePosition();
             this.Left = mousePoint.X - this.Width;
