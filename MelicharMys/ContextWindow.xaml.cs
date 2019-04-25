@@ -75,7 +75,6 @@ namespace MelicharMys
         }
 
         /* scrollSpeed */
-
         private void scrollSpeedValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (scrollSpeedValueTextBox != null)
@@ -102,5 +101,34 @@ namespace MelicharMys
             MouseOptions.ScrollSpeed.SetDefaultScrollSpeed();
             scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
         }
+
+        /* doubleClickTime */
+        private void doubleClickTimeValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (scrollSpeedValueTextBox != null)
+            {
+                int newSpeed;
+                bool parse = int.TryParse(scrollSpeedValueTextBox.Text, out newSpeed);
+
+                if (parse)
+                {
+                    if (newSpeed < 0) //TODO: může tam být "0"? nenastavit minimum na "1"?
+                    {
+                        newSpeed = 0;
+                        scrollSpeedValueTextBox.Text = newSpeed.ToString();
+                    }
+
+                    MouseOptions.ScrollSpeed.SetScrollSpeed(newSpeed);
+                }
+            }
+
+        }
+
+        private void resetDoubleClickTime_Click(object sender, RoutedEventArgs e)
+        {
+            MouseOptions.DoubleClickTime.SetDefaultDoubleClickTime();
+            scrollSpeedValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
+        }
+        
     }
 }

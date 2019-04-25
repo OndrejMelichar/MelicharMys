@@ -68,6 +68,36 @@ namespace MelicharMys
                 SystemParametersInfo(SPI_SETSCROLLSPEED, intSpeed, ptr, 0);
             }
         }
-        
+
+        public class DoubleClickTime
+        {
+            [DllImport("user32.dll")]
+            public static extern int SystemParametersInfo(int uAction, int uParam, IntPtr lpvParam, int fuWinIni);
+            private const int SPI_GETDOUBLECLICKTIME = 31;
+            private const int SPI_SETDOUBLECLICKTIME = 32;
+
+            public static void SetDefaultDoubleClickTime()
+            {
+                SetDoubleClickTime(3);
+            }
+
+            public static int GetDoubleClickTime()
+            {
+                int intSpeed = 0;
+                IntPtr ptr;
+                ptr = Marshal.AllocCoTaskMem(4);
+                SystemParametersInfo(SPI_GETDOUBLECLICKTIME, 0, ptr, 0);
+                intSpeed = Marshal.ReadInt32(ptr);
+                Marshal.FreeCoTaskMem(ptr);
+                return intSpeed;
+            }
+
+            public static void SetDoubleClickTime(int intSpeed)
+            {
+                IntPtr ptr = new IntPtr(intSpeed);
+                SystemParametersInfo(SPI_SETDOUBLECLICKTIME, intSpeed, ptr, 0);
+            }
+        }
+
     }
 }

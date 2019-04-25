@@ -19,10 +19,18 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical"  Margin="16">
-            <Label Content="Citlivost kolečka myši (počet řádků při scrollování):" HorizontalAlignment="Left" />
+            <Label Content="Citlivost kolečka myši (řádky):" HorizontalAlignment="Left" />
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
                 <Button Click="resetScrollSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"  Margin="16">
+            <Label Content="Rychlost dvojkliku:" HorizontalAlignment="Left" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetDoubleClickTime_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
