@@ -36,8 +36,18 @@ namespace MelicharMys
             this.Top = desktopWorkingArea.Bottom - this.Height;*/
 
             System.Drawing.Point mousePoint = MouseOptions.MousePosition.GetMousePosition();
-            this.Left = mousePoint.X;
-            this.Top = mousePoint.Y;
+            this.Left = mousePoint.X - this.Width;
+            this.Top = mousePoint.Y - this.Height;
+
+            if (this.Top < 0)
+            {
+                this.Top = 0;
+            }
+
+            if (this.Left < 0)
+            {
+                this.Left = 0;
+            }
         }
 
 

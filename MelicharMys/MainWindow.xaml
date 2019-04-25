@@ -5,40 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MelicharMys"
         mc:Ignorable="d"
-        Title="MainWindow" Height="420" Width="320">
+        Title="MainWindow" Height="440" Width="320" MinWidth="320" MaxWidth="320">
 
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="6,0" Height="361" VerticalAlignment="Top">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Profil 1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="320" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical" Margin="0,8,0,16" HorizontalAlignment="Center" Width="294">
+                        <TextBlock Text="Citlivost myši" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" Margin="0,0,0,8" />
+                        <Slider x:Name="mouseSpeedSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
+                            <Button Click="resetMouseSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                        </StackPanel>
+                    </StackPanel>
 
-        <StackPanel Orientation="Vertical"  Margin="16">
-            <TextBlock Text="Citlivost myši" FontWeight="Light" FontSize="16" Margin="0,0,0,8" />
-            <Slider x:Name="mouseSpeedSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
-            <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetMouseSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
-            </StackPanel>
-        </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
+                        <TextBlock Text="Citlivost kolečka myši" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" />
+                        <TextBlock Text="Umožňuje uživateli nastavit, o kolik řádků textu se posunete při otáčení scrollovacím kolečkem myši." Width="268" Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" />
 
-        <StackPanel Orientation="Vertical"  Margin="16">
-            <TextBlock Text="Citlivost kolečka myši" FontWeight="Light" FontSize="16" />
-            <TextBlock Text="Nastavujete, o kolik řádků textu se posunete při otáčení scrollovacím kolečkem myši." Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
+                            <Button Click="resetScrollSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                        </StackPanel>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetScrollSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
-            </StackPanel>
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical"  Margin="16">
-            <TextBlock Text="Rychlost dvojkliku" FontWeight="Light" FontSize="16" />
-            <TextBlock Text="Umožňuje nastavit maximální  časovou prodlevu mezi prvním a druhým kliknutím (v milisekundách)." Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" />
-            <Slider x:Name="doubleClickTimeSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="100"  IsSnapToTickEnabled="True" />
-            <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="doubleClickTimeValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetDoubleClickTime_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
-            </StackPanel>
-        </StackPanel>
-
-        
-
-    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
+                        <TextBlock Text="Rychlost dvojkliku" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" />
+                        <TextBlock Text="Umožňuje uživateli nastavit maximální  časovou prodlevu mezi prvním a druhým kliknutím (v milisekundách)." Width="268" Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" />
+                        <Slider x:Name="doubleClickTimeSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="100"  IsSnapToTickEnabled="True" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="doubleClickTimeValueTextBox_TextChanged" Width="80" />
+                            <Button Click="resetDoubleClickTime_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
 </Window>
