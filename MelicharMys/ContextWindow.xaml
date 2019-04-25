@@ -11,7 +11,7 @@
 
         <StackPanel Orientation="Vertical"  Margin="16">
             <Label Content="Citlivost myši" HorizontalAlignment="Left"/>
-            <Slider x:Name="mouseSpeedSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
+            <Slider x:Name="mouseSpeedSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
                 <Button Click="resetMouseSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
@@ -28,6 +28,7 @@
 
         <StackPanel Orientation="Vertical"  Margin="16">
             <Label Content="Rychlost dvojkliku:" HorizontalAlignment="Left" />
+            <Slider x:Name="doubleClickTimeSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="250"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
                 <Button Click="resetDoubleClickTime_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />

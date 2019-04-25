@@ -25,6 +25,7 @@ namespace MelicharMys
             InitializeComponent();
             mouseSpeedValueTextBox.Text = MouseOptions.MouseSpeed.GetMouseSpeed().ToString();
             scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
+            doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
         }
         
 
@@ -103,22 +104,40 @@ namespace MelicharMys
         }
 
         /* doubleClickTime */
+        private void doubleClickTimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (doubleClickTimeSlider != null && doubleClickTimeValueTextBox != null)
+            {
+                int newTime = (int)doubleClickTimeSlider.Value;
+                doubleClickTimeValueTextBox.Text = newTime.ToString();
+                MouseOptions.DoubleClickTime.SetDoubleClickTime(newTime);
+            }
+
+        }
+
         private void doubleClickTimeValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (scrollSpeedValueTextBox != null)
+            if (doubleClickTimeSlider != null && doubleClickTimeValueTextBox != null)
             {
-                int newSpeed;
-                bool parse = int.TryParse(scrollSpeedValueTextBox.Text, out newSpeed);
+                int newTime;
+                bool parse = int.TryParse(doubleClickTimeValueTextBox.Text, out newTime);
 
                 if (parse)
                 {
-                    if (newSpeed < 0) //TODO: může tam být "0"? nenastavit minimum na "1"?
+                    if (newTime < 0)
                     {
-                        newSpeed = 0;
-                        scrollSpeedValueTextBox.Text = newSpeed.ToString();
+                        newTime = 0;
+                        doubleClickTimeValueTextBox.Text = newTime.ToString();
                     }
 
-                    MouseOptions.ScrollSpeed.SetScrollSpeed(newSpeed);
+                    if (newTime > 5000)
+                    {
+                        newTime = 5000;
+                        doubleClickTimeValueTextBox.Text = newTime.ToString();
+                    }
+
+                    doubleClickTimeSlider.Value = newTime;
+                    MouseOptions.DoubleClickTime.SetDoubleClickTime(newTime);
                 }
             }
 
@@ -127,8 +146,8 @@ namespace MelicharMys
         private void resetDoubleClickTime_Click(object sender, RoutedEventArgs e)
         {
             MouseOptions.DoubleClickTime.SetDefaultDoubleClickTime();
-            scrollSpeedValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
+            doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
         }
-        
+
     }
 }

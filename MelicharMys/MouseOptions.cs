@@ -78,18 +78,12 @@ namespace MelicharMys
 
             public static void SetDefaultDoubleClickTime()
             {
-                SetDoubleClickTime(3);
+                SetDoubleClickTime(500);
             }
 
             public static int GetDoubleClickTime()
             {
-                int intSpeed = 0;
-                IntPtr ptr;
-                ptr = Marshal.AllocCoTaskMem(4);
-                SystemParametersInfo(SPI_GETDOUBLECLICKTIME, 0, ptr, 0);
-                intSpeed = Marshal.ReadInt32(ptr);
-                Marshal.FreeCoTaskMem(ptr);
-                return intSpeed;
+                return System.Windows.Forms.SystemInformation.DoubleClickTime;
             }
 
             public static void SetDoubleClickTime(int intSpeed)
