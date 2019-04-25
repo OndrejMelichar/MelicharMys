@@ -43,9 +43,8 @@ namespace MelicharMys
         {
             [DllImport("user32.dll")]
             public static extern int SystemParametersInfo(int uAction, int uParam, IntPtr lpvParam, int fuWinIni);
-            private const int SPI_GETSCROLLSPEED = 110;//68 
-            private const int SPI_SETSCROLLSPEED = 111;//69
-            //TODO: SPI_GETSCROLLSPEED a SPI_SETSCROLLSPEED má špatné hodnoty
+            private const int SPI_GETSCROLLSPEED = 104;
+            private const int SPI_SETSCROLLSPEED = 105;
 
             public static void SetDefaultScrollSpeed()
             {
@@ -66,7 +65,7 @@ namespace MelicharMys
             public static void SetScrollSpeed(int intSpeed)
             {
                 IntPtr ptr = new IntPtr(intSpeed);
-                SystemParametersInfo(SPI_SETSCROLLSPEED, 0, ptr, 0);
+                SystemParametersInfo(SPI_SETSCROLLSPEED, intSpeed, ptr, 0);
             }
         }
         

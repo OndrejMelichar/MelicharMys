@@ -100,7 +100,7 @@ namespace MelicharMys
         private void resetScrollSpeed_Click(object sender, RoutedEventArgs e)
         {
             MouseOptions.ScrollSpeed.SetDefaultScrollSpeed();
-            mouseSpeedSlider.Value = MouseOptions.ScrollSpeed.GetScrollSpeed();
+            scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
         }
     }
 }
