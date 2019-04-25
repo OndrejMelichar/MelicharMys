@@ -19,7 +19,7 @@ namespace MelicharMys
         private System.Windows.Forms.NotifyIcon _notifyIcon;
         private bool _isExit;
 
-        private ContextWindow contextWindow;
+        private MainWindow mainWindow;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -46,11 +46,11 @@ namespace MelicharMys
 
         private void _notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            if (this.contextWindow == null)
+            if (this.mainWindow == null)
             {
-                this.contextWindow = new ContextWindow();
-                this.contextWindow.Closed += (s, e2) => this.contextWindowClose();
-                this.contextWindow.Show();
+                this.mainWindow = new MainWindow();
+                this.mainWindow.Closed += (s, e2) => this.contextWindowClose();
+                this.mainWindow.Show();
             }
             
             //TODO: při otevření okna podruhé by se mělo zavřít předchozí (anebo se zamezit otevření dalšího)
@@ -58,7 +58,7 @@ namespace MelicharMys
 
         private void contextWindowClose()
         {
-            this.contextWindow = null;
+            this.mainWindow = null;
         }
 
         private void ExitApplication()
