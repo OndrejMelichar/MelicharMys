@@ -5,36 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MelicharMys"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Content="ContextWindow" FontSize="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        Title="MainWindow" Height="420" Width="320">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="6,0" Height="361" VerticalAlignment="Top">
 
         <StackPanel Orientation="Vertical"  Margin="16">
-            <Label Content="Citlivost myši" HorizontalAlignment="Left"/>
-            <Slider x:Name="mouseSpeedSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
+            <TextBlock Text="Citlivost myši" FontWeight="Light" FontSize="16" Margin="0,0,0,8" />
+            <Slider x:Name="mouseSpeedSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetMouseSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+                <Button Click="resetMouseSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Vertical"  Margin="16">
-            <Label Content="Citlivost kolečka myši (řádky):" HorizontalAlignment="Left" />
+            <TextBlock Text="Citlivost kolečka myši" FontWeight="Light" FontSize="16" />
+            <TextBlock Text="Nastavujete, o kolik řádků textu se posunete při otáčení scrollovacím kolečkem myši." Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" />
+
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetScrollSpeed_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+                <Button Click="resetScrollSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Vertical"  Margin="16">
-            <Label Content="Rychlost dvojkliku:" HorizontalAlignment="Left" />
-            <Slider x:Name="doubleClickTimeSlider" Width="256" HorizontalAlignment="Left" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="250"  IsSnapToTickEnabled="True" />
+            <TextBlock Text="Rychlost dvojkliku" FontWeight="Light" FontSize="16" />
+            <TextBlock Text="Umožňuje nastavit maximální  časovou prodlevu mezi prvním a druhým kliknutím (v milisekundách)." Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" />
+            <Slider x:Name="doubleClickTimeSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="100"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetDoubleClickTime_Click" Padding="8,0,8,0" Content="Obnovit výchozí nastavení" />
+                <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="doubleClickTimeValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetDoubleClickTime_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
+        
 
     </StackPanel>
 </Window>
