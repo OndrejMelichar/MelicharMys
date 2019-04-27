@@ -20,10 +20,14 @@ namespace MelicharMys
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Profile> profiles;
+
         public MainWindow()
         {
             InitializeComponent();
+
             this.setWindowLocation();
+
             mouseSpeedValueTextBox.Text = MouseOptions.MouseSpeed.GetMouseSpeed().ToString();
             scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
             doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
@@ -169,5 +173,10 @@ namespace MelicharMys
             doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
         }
 
+        /* ostatní eventy */
+        private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
     }
 }
