@@ -19,11 +19,14 @@ namespace MelicharMys
         private System.Windows.Forms.NotifyIcon _notifyIcon;
         private bool _isExit;
 
+        private MainWindow mainWindow;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            MainWindow = new MainWindow();
-            MainWindow.Closing += MainWindow_Closing;
+            this.mainWindow = new MainWindow();
+            this.mainWindow.Show();
+            this.mainWindow.Closing += MainWindow_Closing;
 
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
             _notifyIcon.Click += (s, e2) => ShowMainWindow();
@@ -38,24 +41,24 @@ namespace MelicharMys
         private void ExitApplication()
         {
             _isExit = true;
-            MainWindow.Close();
+            this.mainWindow.Close();
             _notifyIcon.Dispose();
             _notifyIcon = null;
         }
 
         private void ShowMainWindow()
         {
-            if (MainWindow.IsVisible)
+            if (this.mainWindow.IsVisible)
             {
-                if (MainWindow.WindowState == WindowState.Minimized)
+                if (this.mainWindow.WindowState == WindowState.Minimized)
                 {
-                    MainWindow.WindowState = WindowState.Normal;
+                    this.mainWindow.WindowState = WindowState.Normal;
                 }
-                MainWindow.Activate();
+                this.mainWindow.Activate();
             }
             else
             {
-                MainWindow.Show();
+                this.mainWindow.Show();
             }
         }
 
@@ -64,7 +67,7 @@ namespace MelicharMys
             if (!_isExit)
             {
                 e.Cancel = true;
-                MainWindow.Hide(); // A hidden window can be shown again, a closed one not
+                this.mainWindow.Hide(); // A hidden window can be shown again, a closed one not
             }
         }
     }
