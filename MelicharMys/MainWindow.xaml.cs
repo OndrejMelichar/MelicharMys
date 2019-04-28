@@ -24,7 +24,7 @@ namespace MelicharMys
         private ObservableCollection<string> profileNamesObservableCollection = new ObservableCollection<string>();
         private List<Profile> allProfiles = new List<Profile>();
         private Profile actualProfile;
-        private string profilesJSONfile = "profiles.json";
+        private JsonActions jsonActions = new JsonActions("profiles.json");
 
         public MainWindow()
         {
@@ -39,8 +39,7 @@ namespace MelicharMys
 
         private void setProfiles()
         {
-            JsonActions jsonActions = new JsonActions();
-            List<Profile> profiles = jsonActions.LoadProfiles(this.profilesJSONfile);
+            List<Profile> profiles = this.jsonActions.LoadProfiles();
 
             if (profiles != null)
             {
@@ -59,11 +58,7 @@ namespace MelicharMys
             int doubleClickTime = MouseOptions.DoubleClickTime.GetDoubleClickTime();
             
             this.actualProfile = this.getActualProfile(this.allProfiles, mouseSpeed, scrollSpeed, doubleClickTime);
-            profilesComboBox.SelectedItem = this.actualProfile;
-
-            mouseSpeedValueTextBox.Text = mouseSpeed.ToString();
-            scrollSpeedValueTextBox.Text = scrollSpeed.ToString();
-            doubleClickTimeValueTextBox.Text = doubleClickTime.ToString();
+            profilesComboBox.SelectedItem = this.actualProfile.Name;
         }
 
         private void setWindowLocation()
@@ -108,20 +103,34 @@ namespace MelicharMys
         private void addProfile(Profile profile)
         {
             this.profileNamesObservableCollection.Add(profile.Name);
-            JsonActions jsonActions = new JsonActions();
-            jsonActions.SaveProfiles(this.profilesJSONfile, this.allProfiles);
+            this.allProfiles.Add(profile);
+            this.jsonActions.SaveProfiles(this.allProfiles);
         }
 
 
         /* ostatní eventy */
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int selectedIndex = this.profilesComboBox.SelectedIndex;
+            this.actualProfile = this.allProfiles[selectedIndex];
 
+            mouseSpeedValueTextBox.Text = this.actualProfile.MouseSpeed.ToString();
+            scrollSpeedValueTextBox.Text = this.actualProfile.ScrollSpeed.ToString();
+            doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
         }
 
         private void profilesComboBoxItem_TextChanged(object sender, TextChangedEventArgs e)
         {
+            int selectedIndex = this.profilesComboBox.SelectedIndex;
+            //TODO: profilesComboBoxItem_TextChanged
+        }
 
+        private void newProfile_Click(object sender, RoutedEventArgs e)
+        {
+            Profile newProfile = new Profile() { ID = this.allProfiles.Count, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
+            this.addProfile(newProfile);
+            this.actualProfile = newProfile;
+            profilesComboBox.SelectedItem = newProfile.Name;
         }
 
 
@@ -158,8 +167,10 @@ namespace MelicharMys
                         mouseSpeedValueTextBox.Text = newSpeed.ToString();
                     }
 
+                    this.actualProfile.MouseSpeed = newSpeed;
                     mouseSpeedSlider.Value = newSpeed;
                     MouseOptions.MouseSpeed.SetMouseSpeed(newSpeed);
+                    this.jsonActions.SaveProfiles(this.allProfiles);
                 }
             }
 
@@ -187,7 +198,9 @@ namespace MelicharMys
                         scrollSpeedValueTextBox.Text = newSpeed.ToString();
                     }
 
+                    this.actualProfile.ScrollSpeed = newSpeed;
                     MouseOptions.ScrollSpeed.SetScrollSpeed(newSpeed);
+                    this.jsonActions.SaveProfiles(this.allProfiles);
                 }
             }
 
@@ -232,8 +245,10 @@ namespace MelicharMys
                         doubleClickTimeValueTextBox.Text = newTime.ToString();
                     }
 
+                    this.actualProfile.DoubleClickTime = newTime;
                     doubleClickTimeSlider.Value = newTime;
                     MouseOptions.DoubleClickTime.SetDoubleClickTime(newTime);
+                    this.jsonActions.SaveProfiles(this.allProfiles);
                 }
             }
 

@@ -10,7 +10,14 @@ namespace MelicharMys
 {
     public class JsonActions
     {
-        public List<Profile> LoadProfiles(string fileName)
+        private string fileName;
+
+        public JsonActions(string fileName)
+        {
+            this.fileName = fileName;
+        }
+
+        public List<Profile> LoadProfiles()
         {
             if (File.Exists(fileName))
             {
@@ -27,7 +34,7 @@ namespace MelicharMys
             return null;
         }
 
-        public void SaveProfiles(string fileName, List<Profile> profiles)
+        public void SaveProfiles(List<Profile> profiles)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
