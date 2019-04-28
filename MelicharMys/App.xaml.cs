@@ -19,8 +19,6 @@ namespace MelicharMys
         private System.Windows.Forms.NotifyIcon _notifyIcon;
         private bool _isExit;
 
-        private MainWindow mainWindow;
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -28,32 +26,13 @@ namespace MelicharMys
             MainWindow.Closing += MainWindow_Closing;
 
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
-            _notifyIcon.DoubleClick += (s, args) => ShowMainWindow();
+            _notifyIcon.Click += (s, e2) => ShowMainWindow();
             _notifyIcon.Icon = MelicharMys.Properties.Resources.MyIcon;
             _notifyIcon.Visible = true;
 
             _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
-            _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e2) => ExitApplication();
-
-            _notifyIcon.Click += _notifyIcon_Click;
-        }
-
-        private void _notifyIcon_Click(object sender, EventArgs e)
-        {
-            if (this.mainWindow == null)
-            {
-                this.mainWindow = new MainWindow();
-                this.mainWindow.Closed += (s, e2) => this.contextWindowClose();
-                this.mainWindow.Show();
-            }
-            
-            //TODO: při otevření okna podruhé by se mělo zavřít předchozí (anebo se zamezit otevření dalšího)
-        }
-
-        private void contextWindowClose()
-        {
-            this.mainWindow = null;
+            // //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
+            _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e3) => ExitApplication();
         }
 
         private void ExitApplication()
