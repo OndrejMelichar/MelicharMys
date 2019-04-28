@@ -112,17 +112,15 @@ namespace MelicharMys
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedIndex = this.profilesComboBox.SelectedIndex;
-            this.actualProfile = this.allProfiles[selectedIndex];
+
+            if (selectedIndex != -1)
+            {
+                this.actualProfile = this.allProfiles[selectedIndex];
+            }
 
             mouseSpeedValueTextBox.Text = this.actualProfile.MouseSpeed.ToString();
             scrollSpeedValueTextBox.Text = this.actualProfile.ScrollSpeed.ToString();
             doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
-        }
-
-        private void profilesComboBoxItem_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int selectedIndex = this.profilesComboBox.SelectedIndex;
-            //TODO: profilesComboBoxItem_TextChanged
         }
 
         private void newProfile_Click(object sender, RoutedEventArgs e)

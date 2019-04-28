@@ -34,7 +34,7 @@ namespace MelicharMys
             _notifyIcon.Visible = true;
 
             _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            // //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
+            //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
             _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e3) => ExitApplication();
         }
 

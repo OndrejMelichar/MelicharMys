@@ -9,7 +9,7 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="320" VerticalAlignment="Top">
 
-        <ComboBox x:Name="profilesComboBox" SelectionChanged="profilesComboBox_SelectionChanged" TextBoxBase.TextChanged="profilesComboBoxItem_TextChanged" IsEditable="True" Width="268" Margin="0,8,0,8" HorizontalAlignment="Center" />
+        <ComboBox x:Name="profilesComboBox" SelectionChanged="profilesComboBox_SelectionChanged" Width="268" Margin="0,8,0,8" HorizontalAlignment="Center" />
 
         <Button Click="newProfile_Click" Padding="16,0,16,0" Width="268" Content="Vytvořit nový profil" />
         
