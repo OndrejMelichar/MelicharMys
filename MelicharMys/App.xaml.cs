@@ -32,19 +32,14 @@ namespace MelicharMys
             _notifyIcon.Icon = MelicharMys.Properties.Resources.MyIcon;
             _notifyIcon.Visible = true;
 
-            CreateContextMenu();
-        }
-
-        private void CreateContextMenu()
-        {
             _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
-            _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e) => ExitApplication();
+            _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e2) => ExitApplication();
 
-            _notifyIcon.Click += _notifyIcon_DoubleClick;
+            _notifyIcon.Click += _notifyIcon_Click;
         }
 
-        private void _notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void _notifyIcon_Click(object sender, EventArgs e)
         {
             if (this.mainWindow == null)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,49 @@ namespace MelicharMys
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Profile> profiles;
+        private ObservableCollection<string> profileNamesObservableCollection = new ObservableCollection<string>();
+        private List<Profile> allProfiles = new List<Profile>();
+        private Profile actualProfile;
+        private string profilesJSONfile = "profiles.json";
 
         public MainWindow()
         {
             InitializeComponent();
 
             this.setWindowLocation();
+            this.setProfiles();
+            this.setInputValues();
 
-            mouseSpeedValueTextBox.Text = MouseOptions.MouseSpeed.GetMouseSpeed().ToString();
-            scrollSpeedValueTextBox.Text = MouseOptions.ScrollSpeed.GetScrollSpeed().ToString();
-            doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
+            profilesComboBox.ItemsSource = this.profileNamesObservableCollection;
+        }
+
+        private void setProfiles()
+        {
+            JsonActions jsonActions = new JsonActions();
+            List<Profile> profiles = jsonActions.LoadProfiles(this.profilesJSONfile);
+
+            if (profiles != null)
+            {
+                foreach (Profile profile in profiles)
+                {
+                    this.allProfiles.Add(profile);
+                    this.profileNamesObservableCollection.Add(profile.Name);
+                }
+            }
+        }
+
+        private void setInputValues()
+        {
+            int mouseSpeed = MouseOptions.MouseSpeed.GetMouseSpeed();
+            int scrollSpeed = MouseOptions.ScrollSpeed.GetScrollSpeed();
+            int doubleClickTime = MouseOptions.DoubleClickTime.GetDoubleClickTime();
+            
+            this.actualProfile = this.getActualProfile(this.allProfiles, mouseSpeed, scrollSpeed, doubleClickTime);
+            profilesComboBox.SelectedItem = this.actualProfile;
+
+            mouseSpeedValueTextBox.Text = mouseSpeed.ToString();
+            scrollSpeedValueTextBox.Text = scrollSpeed.ToString();
+            doubleClickTimeValueTextBox.Text = doubleClickTime.ToString();
         }
 
         private void setWindowLocation()
@@ -50,6 +83,45 @@ namespace MelicharMys
             {
                 this.Left = 0;
             }
+        }
+
+
+        /* pomocné metody */
+        private Profile getActualProfile(List<Profile> profiles, int mouseSpeed, int scrollSpeed, int doubleClickTime)
+        {
+            if (profiles != null)
+            {
+                foreach (Profile profile in profiles)
+                {
+                    if (profile.MouseSpeed == mouseSpeed && profile.ScrollSpeed == scrollSpeed && profile.DoubleClickTime == doubleClickTime)
+                    {
+                        return profile;
+                    }
+                }
+            }
+
+            Profile newProfile = new Profile() { ID = this.allProfiles.Count, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = mouseSpeed, ScrollSpeed = scrollSpeed, DoubleClickTime = doubleClickTime };
+            this.addProfile(newProfile);
+            return newProfile;
+        }
+
+        private void addProfile(Profile profile)
+        {
+            this.profileNamesObservableCollection.Add(profile.Name);
+            JsonActions jsonActions = new JsonActions();
+            jsonActions.SaveProfiles(this.profilesJSONfile, this.allProfiles);
+        }
+
+
+        /* ostatní eventy */
+        private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void profilesComboBoxItem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
 
@@ -171,12 +243,6 @@ namespace MelicharMys
         {
             MouseOptions.DoubleClickTime.SetDefaultDoubleClickTime();
             doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
-        }
-
-        /* ostatní eventy */
-        private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
         }
     }
 }
