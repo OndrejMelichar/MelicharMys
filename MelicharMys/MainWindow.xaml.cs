@@ -29,8 +29,7 @@ namespace MelicharMys
         public MainWindow()
         {
             InitializeComponent();
-
-            this.setWindowLocation();
+            
             this.setProfiles();
             this.setInputValues();
 
@@ -59,25 +58,6 @@ namespace MelicharMys
             
             this.actualProfile = this.getActualProfile(this.allProfiles, mouseSpeed, scrollSpeed, doubleClickTime);
             profilesComboBox.SelectedItem = this.actualProfile.Name;
-        }
-
-        private void setWindowLocation()
-        {
-            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-
-            System.Drawing.Point mousePoint = MouseOptions.MousePosition.GetMousePosition();
-            this.Left = mousePoint.X - this.Width;
-            this.Top = mousePoint.Y - this.Height;
-
-            if (this.Top < 0)
-            {
-                this.Top = 0;
-            }
-
-            if (this.Left < 0)
-            {
-                this.Left = 0;
-            }
         }
 
 

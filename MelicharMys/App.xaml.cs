@@ -25,6 +25,7 @@ namespace MelicharMys
         {
             base.OnStartup(e);
             this.mainWindow = new MainWindow();
+            this.setWindowLocation();
             this.mainWindow.Show();
             this.mainWindow.Closing += MainWindow_Closing;
 
@@ -36,6 +37,25 @@ namespace MelicharMys
             _notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             //_notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
             _notifyIcon.ContextMenuStrip.Items.Add("Ukončit").Click += (s, e3) => ExitApplication();
+        }
+
+        private void setWindowLocation()
+        {
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+
+            System.Drawing.Point mousePoint = MouseOptions.MousePosition.GetMousePosition();
+            this.mainWindow.Left = mousePoint.X - this.mainWindow.Width;
+            this.mainWindow.Top = mousePoint.Y - this.mainWindow.Height;
+
+            if (this.mainWindow.Top < 0)
+            {
+                this.mainWindow.Top = 0;
+            }
+
+            if (this.mainWindow.Left < 0)
+            {
+                this.mainWindow.Left = 0;
+            }
         }
 
         private void ExitApplication()
@@ -54,10 +74,13 @@ namespace MelicharMys
                 {
                     this.mainWindow.WindowState = WindowState.Normal;
                 }
+
+                this.setWindowLocation();
                 this.mainWindow.Activate();
             }
             else
             {
+                this.setWindowLocation();
                 this.mainWindow.Show();
             }
         }
