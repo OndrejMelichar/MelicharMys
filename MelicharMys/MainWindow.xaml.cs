@@ -89,9 +89,10 @@ namespace MelicharMys
 
 
         /* ostatní eventy */
-        private void addToDatabase_Click(object sender, RoutedEventArgs e)
+        private async void addToDatabase_Click(object sender, RoutedEventArgs e)
         {
-
+            WebAPIActions webAPIActions = new WebAPIActions();
+            await webAPIActions.SaveProfile(this.actualProfile);
         }
 
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

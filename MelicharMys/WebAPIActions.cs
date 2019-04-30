@@ -10,12 +10,12 @@ namespace MelicharMys
 {
     public class WebAPIActions
     {
-        private string uri = "https://api.chucknorris.io/jokes/random";
+        private string uri = "https://student.sps-prosek.cz/~melicon16/MelicharWebAPI.php";
 
         public async Task<Profile> LoadProfile(int profileID)
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(this.uri);
+            var response = await client.GetAsync(this.uri + "?profileID=" + profileID);
             string json = await response.Content.ReadAsStringAsync();
 
             Profile profile = JsonConvert.DeserializeObject<Profile>(json);
@@ -29,7 +29,27 @@ namespace MelicharMys
 
         public async Task SaveProfile(Profile profile)
         {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, this.uri);
 
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("profile", this.serializeProfile(profile)));
+            request.Content = new FormUrlEncodedContent(keyValues);
+            var response = await client.SendAsync(request);
+            string responseContent = await response.Content.ReadAsStringAsync(); //hodnota tohoto
+        }
+
+
+        /* pomocné metody */
+        private string serializeProfile(Profile profile)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            string json = JsonConvert.SerializeObject(profile, settings);
+            return json;
         }
     }
 }
