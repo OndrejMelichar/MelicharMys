@@ -46,6 +46,7 @@ namespace MelicharMys
             System.Drawing.Point mousePoint = MouseOptions.MousePosition.GetMousePosition();
             this.mainWindow.Left = mousePoint.X - this.mainWindow.Width;
             this.mainWindow.Top = mousePoint.Y - this.mainWindow.Height;
+            this.mainWindow.Topmost = true;
 
             if (this.mainWindow.Top < 0)
             {
