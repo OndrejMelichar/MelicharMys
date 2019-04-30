@@ -89,6 +89,11 @@ namespace MelicharMys
 
 
         /* ostatní eventy */
+        private void addToDatabase_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedIndex = this.profilesComboBox.SelectedIndex;
@@ -105,7 +110,8 @@ namespace MelicharMys
 
         private void newProfile_Click(object sender, RoutedEventArgs e)
         {
-            Profile newProfile = new Profile() { ID = this.allProfiles.Count, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
+            string timeString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Profile newProfile = new Profile() { Name = "Profil " + (this.allProfiles.Count + 1).ToString() + timeString, MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
             this.addProfile(newProfile);
             this.actualProfile = newProfile;
             profilesComboBox.SelectedItem = newProfile.Name;
