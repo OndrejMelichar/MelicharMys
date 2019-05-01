@@ -34,12 +34,21 @@ namespace MelicharMys
             return null;
         }
 
-        public void SaveProfiles(List<Profile> profiles)
+        public void SaveProfiles(List<Profile> profilesX)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };
+
+            List<Profile> profiles = new List<Profile>();
+            foreach (Profile profile in profilesX)
+            {
+                if (!profile.FromDB)
+                {
+                    profiles.Add(profile);
+                }
+            }
 
             string json = JsonConvert.SerializeObject(profiles, settings);
             File.WriteAllText(fileName, json);

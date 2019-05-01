@@ -25,6 +25,7 @@ namespace MelicharMys
         private List<Profile> allProfiles = new List<Profile>();
         private Profile actualProfile;
         private JsonActions jsonActions = new JsonActions("profiles.json");
+        private int profilesCount = 0;
 
         public MainWindow()
         {
@@ -36,7 +37,7 @@ namespace MelicharMys
             profilesComboBox.ItemsSource = this.profileNamesObservableCollection;
 
             Task.Run(async () => {
-                await setDBProfiles();
+                await this.setDBProfiles();
             }).ConfigureAwait(true);
         }
 
@@ -48,6 +49,7 @@ namespace MelicharMys
             foreach (Profile profile in apiProfiles)
             {
                 profile.Name += " DB";
+                profile.FromDB = true;
                 this.allProfiles.Add(profile);
                 this.profileNamesObservableCollection.Add(profile.Name);
             }
@@ -73,17 +75,17 @@ namespace MelicharMys
             int scrollSpeed = MouseOptions.ScrollSpeed.GetScrollSpeed();
             int doubleClickTime = MouseOptions.DoubleClickTime.GetDoubleClickTime();
             
-            this.actualProfile = this.getActualProfile(this.allProfiles, mouseSpeed, scrollSpeed, doubleClickTime);
+            this.actualProfile = this.getActualProfile(mouseSpeed, scrollSpeed, doubleClickTime);
             profilesComboBox.SelectedItem = this.actualProfile.Name;
         }
 
 
         /* pomocné metody */
-        private Profile getActualProfile(List<Profile> profiles, int mouseSpeed, int scrollSpeed, int doubleClickTime)
+        private Profile getActualProfile(int mouseSpeed, int scrollSpeed, int doubleClickTime)
         {
-            if (profiles != null)
+            if (this.allProfiles != null)
             {
-                foreach (Profile profile in profiles)
+                foreach (Profile profile in this.allProfiles)
                 {
                     if (profile.MouseSpeed == mouseSpeed && profile.ScrollSpeed == scrollSpeed && profile.DoubleClickTime == doubleClickTime)
                     {
@@ -93,6 +95,7 @@ namespace MelicharMys
             }
 
             Profile newProfile = new Profile() { FromDB = false, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = mouseSpeed, ScrollSpeed = scrollSpeed, DoubleClickTime = doubleClickTime };
+            this.profilesCount++;
             this.addProfile(newProfile);
             return newProfile;
         }
@@ -134,11 +137,19 @@ namespace MelicharMys
             doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
         }
 
+        private void profilesComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            Task.Run(async () => {
+                await this.setDBProfiles();
+            }).ConfigureAwait(true);
+        }
+
         private void newProfile_Click(object sender, RoutedEventArgs e)
         {
             string timeString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            Profile newProfile = new Profile() { FromDB = false, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
+            Profile newProfile = new Profile() { FromDB = false, Name = "Profil " + (this.profilesCount + 1).ToString(), MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
             this.addProfile(newProfile);
+            this.profilesCount++;
             this.actualProfile = newProfile;
             profilesComboBox.SelectedItem = newProfile.Name;
         }
@@ -269,5 +280,6 @@ namespace MelicharMys
             MouseOptions.DoubleClickTime.SetDefaultDoubleClickTime();
             doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
         }
+
     }
 }
