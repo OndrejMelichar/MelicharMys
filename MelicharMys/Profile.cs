@@ -13,5 +13,6 @@ namespace MelicharMys
         public int MouseSpeed { get; set; }
         public int ScrollSpeed { get; set; }
         public int DoubleClickTime { get; set; }
+        public bool FromDB { get; set; }
     }
 }

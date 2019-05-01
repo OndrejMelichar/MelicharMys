@@ -29,11 +29,28 @@ namespace MelicharMys
         public MainWindow()
         {
             InitializeComponent();
-            
+
             this.setProfiles();
             this.setInputValues();
 
             profilesComboBox.ItemsSource = this.profileNamesObservableCollection;
+
+            Task.Run(async () => {
+                await setDBProfiles();
+            }).ConfigureAwait(true);
+        }
+
+        private async Task setDBProfiles()
+        {
+            WebAPIActions webAPIActions = new WebAPIActions();
+            List<Profile> apiProfiles = await webAPIActions.LoadAllProfiles();
+
+            foreach (Profile profile in apiProfiles)
+            {
+                profile.Name += " DB";
+                this.allProfiles.Add(profile);
+                this.profileNamesObservableCollection.Add(profile.Name);
+            }
         }
 
         private void setProfiles()
@@ -75,7 +92,7 @@ namespace MelicharMys
                 }
             }
 
-            Profile newProfile = new Profile() { ID = this.allProfiles.Count, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = mouseSpeed, ScrollSpeed = scrollSpeed, DoubleClickTime = doubleClickTime };
+            Profile newProfile = new Profile() { FromDB = false, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = mouseSpeed, ScrollSpeed = scrollSpeed, DoubleClickTime = doubleClickTime };
             this.addProfile(newProfile);
             return newProfile;
         }
@@ -93,8 +110,6 @@ namespace MelicharMys
         {
             WebAPIActions webAPIActions = new WebAPIActions();
             await webAPIActions.SaveProfile(this.actualProfile);
-            List<Profile> profiles = await webAPIActions.LoadAllProfiles();
-            Profile profile = await webAPIActions.LoadProfile(8);
         }
 
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -106,6 +121,14 @@ namespace MelicharMys
                 this.actualProfile = this.allProfiles[selectedIndex];
             }
 
+            if (this.actualProfile.FromDB)
+            {
+                addToDatabaseButton.IsEnabled = false;
+            } else
+            {
+                addToDatabaseButton.IsEnabled = true;
+            }
+
             mouseSpeedValueTextBox.Text = this.actualProfile.MouseSpeed.ToString();
             scrollSpeedValueTextBox.Text = this.actualProfile.ScrollSpeed.ToString();
             doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
@@ -114,7 +137,7 @@ namespace MelicharMys
         private void newProfile_Click(object sender, RoutedEventArgs e)
         {
             string timeString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            Profile newProfile = new Profile() { Name = "Profil " + (this.allProfiles.Count + 1).ToString() + timeString, MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
+            Profile newProfile = new Profile() { FromDB = false, Name = "Profil " + (this.allProfiles.Count + 1).ToString(), MouseSpeed = 10, ScrollSpeed = 3, DoubleClickTime = 500 };
             this.addProfile(newProfile);
             this.actualProfile = newProfile;
             profilesComboBox.SelectedItem = newProfile.Name;

@@ -13,7 +13,7 @@
 
         <Button Click="newProfile_Click" Padding="16,0,16,0" Width="268" Content="Vytvořit nový profil" />
 
-        <Button Click="addToDatabase_Click" Padding="16,0,16,0" Margin="0,8,0,0" Width="268" Content="Přidat do online databáze" />
+        <Button x:Name="addToDatabaseButton" Click="addToDatabase_Click" Padding="16,0,16,0" Margin="0,8,0,0" Width="268" Content="Přidat do online databáze" />
 
         <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
             <TextBlock Text="Citlivost myši" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" Margin="0,0,0,8" />
