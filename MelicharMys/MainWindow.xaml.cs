@@ -93,6 +93,7 @@ namespace MelicharMys
         {
             WebAPIActions webAPIActions = new WebAPIActions();
             await webAPIActions.SaveProfile(this.actualProfile);
+            List<Profile> profiles = await webAPIActions.LoadAllProfiles();
         }
 
         private void profilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

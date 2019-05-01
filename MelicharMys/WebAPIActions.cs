@@ -24,7 +24,17 @@ namespace MelicharMys
 
         public async Task<List<Profile>> LoadAllProfiles()
         {
-            return new List<Profile>();
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, this.uri);
+            var response = await client.SendAsync(request);
+            string responseContent = await response.Content.ReadAsStringAsync(); //hodnota tohoto
+            List<Profile> deserializedProfiles = JsonConvert.DeserializeObject<List<Profile>>(responseContent, settings);
+            return deserializedProfiles;
         }
 
         public async Task SaveProfile(Profile profile)
