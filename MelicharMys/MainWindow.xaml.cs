@@ -36,11 +36,11 @@ namespace MelicharMys
 
             profilesComboBox.ItemsSource = this.profileNamesObservableCollection;
 
-            /*Task.Run(async () => {
+            Task.Run(async () => {
                 await this.setDBProfiles();
-            }).ConfigureAwait(true);*/
+            }).ConfigureAwait(true);
 
-            this.setDBProfiles().Wait();
+            /*this.setDBProfiles().Wait();*/
         }
 
         private async Task setDBProfiles()
@@ -57,7 +57,8 @@ namespace MelicharMys
                 profile.Name += " DB";
                 profile.FromDB = true;
                 this.allProfiles.Add(profile);
-                this.profileNamesObservableCollection.Add(profile.Name);
+                
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => this.profileNamesObservableCollection.Add(profile.Name)));
             }
 
             return true;
@@ -147,9 +148,9 @@ namespace MelicharMys
 
         private void profilesComboBox_DropDownOpened(object sender, EventArgs e)
         {
-            Task.Run(async () => {
+            /*Task.Run(async () => {
                 await this.setDBProfiles();
-            }).ConfigureAwait(true);
+            }).ConfigureAwait(true);*/
         }
 
         private void newProfile_Click(object sender, RoutedEventArgs e)
