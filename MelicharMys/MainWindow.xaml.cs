@@ -36,16 +36,22 @@ namespace MelicharMys
 
             profilesComboBox.ItemsSource = this.profileNamesObservableCollection;
 
-            Task.Run(async () => {
+            /*Task.Run(async () => {
                 await this.setDBProfiles();
-            }).ConfigureAwait(true);
+            }).ConfigureAwait(true);*/
+
+            this.setDBProfiles().Wait();
         }
 
         private async Task setDBProfiles()
         {
             WebAPIActions webAPIActions = new WebAPIActions();
             List<Profile> apiProfiles = await webAPIActions.LoadAllProfiles();
+            await Task.Run(() => pom(apiProfiles));
+        }
 
+        private bool pom(List<Profile> apiProfiles)
+        {
             foreach (Profile profile in apiProfiles)
             {
                 profile.Name += " DB";
@@ -53,6 +59,8 @@ namespace MelicharMys
                 this.allProfiles.Add(profile);
                 this.profileNamesObservableCollection.Add(profile.Name);
             }
+
+            return true;
         }
 
         private void setProfiles()
