@@ -292,5 +292,27 @@ namespace MelicharMys
             doubleClickTimeValueTextBox.Text = MouseOptions.DoubleClickTime.GetDoubleClickTime().ToString();
         }
 
+        /* hledat profil podle ID */
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            int searchedID;
+            bool parse = int.TryParse(profileIDLabel.Text.ToString(), out searchedID);
+
+            if (parse)
+            {
+                WebAPIActions webAPIActions = new WebAPIActions();
+                Profile profile = await webAPIActions.LoadProfile(searchedID);
+
+                if (profile != null)
+                {
+                    this.actualProfile = profile;
+                    profilesComboBox.SelectedItem = this.actualProfile.Name;
+
+                    mouseSpeedValueTextBox.Text = this.actualProfile.MouseSpeed.ToString();
+                    scrollSpeedValueTextBox.Text = this.actualProfile.ScrollSpeed.ToString();
+                    doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
+                }
+            }
+        }
     }
 }

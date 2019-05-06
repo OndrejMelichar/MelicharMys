@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MelicharMys"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="320" MinWidth="320" MaxWidth="320">
+        Title="MainWindow" Height="525" Width="320" MinWidth="320" MaxWidth="320">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="320" VerticalAlignment="Top">
+
+        <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Width="268">
+            <TextBox x:Name="profileIDLabel" Width="130" />
+            <Button Content="Vyhledat profil" Margin="8,0,0,0" Click="searchButton_Click" Width="130" />
+        </StackPanel>
 
         <ComboBox x:Name="profilesComboBox" SelectionChanged="profilesComboBox_SelectionChanged" DropDownOpened="profilesComboBox_DropDownOpened" Width="268" Margin="0,8,0,8" HorizontalAlignment="Center" />
 
