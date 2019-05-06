@@ -52,13 +52,15 @@ namespace MelicharMys
 
         private bool pom(List<Profile> apiProfiles)
         {
-            foreach (Profile profile in apiProfiles)
-            {
-                profile.Name += " DB";
-                profile.FromDB = true;
-                this.allProfiles.Add(profile);
-                
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => this.profileNamesObservableCollection.Add(profile.Name)));
+            if (apiProfiles != null) {
+                foreach (Profile profile in apiProfiles)
+                {
+                    profile.Name += " DB";
+                    profile.FromDB = true;
+                    this.allProfiles.Add(profile);
+
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() => this.profileNamesObservableCollection.Add(profile.Name)));
+                }
             }
 
             return true;
