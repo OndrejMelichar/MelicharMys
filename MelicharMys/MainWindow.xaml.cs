@@ -312,6 +312,10 @@ namespace MelicharMys
                     scrollSpeedValueTextBox.Text = this.actualProfile.ScrollSpeed.ToString();
                     doubleClickTimeValueTextBox.Text = this.actualProfile.DoubleClickTime.ToString();
                 }
+                else
+                {
+                    profileIDLabel.Text = "";
+                }
             }
         }
     }

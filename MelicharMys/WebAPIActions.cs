@@ -14,12 +14,20 @@ namespace MelicharMys
 
         public async Task<Profile> LoadProfile(int profileID)
         {
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync(this.uri + "?profileID=" + profileID);
-            string json = await response.Content.ReadAsStringAsync();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync(this.uri + "?profileID=" + profileID);
+                string json = await response.Content.ReadAsStringAsync();
 
-            Profile profile = JsonConvert.DeserializeObject<Profile>(json);
-            return profile;
+                Profile profile = JsonConvert.DeserializeObject<Profile>(json);
+                return profile;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<List<Profile>> LoadAllProfiles()
