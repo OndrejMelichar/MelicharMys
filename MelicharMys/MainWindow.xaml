@@ -5,52 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MelicharMys"
         mc:Ignorable="d"
-        Title="MainWindow" Height="525" Width="320" MinWidth="320" MaxWidth="320">
+        Title="MainWindow" Height="650" Width="320" MinWidth="320" MaxWidth="320">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="320" VerticalAlignment="Top">
 
-        <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Width="268" >
-            <TextBox Style="{DynamicResource LeftRountedTextBox}" Width="134" />
-            <Button Style="{DynamicResource RightRountedButton}" Height="25" VerticalAlignment="Top" Content="Show" Width="134" />
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Width="268">
-            <TextBox x:Name="profileIDLabel" Width="130" />
-            <Button Content="Vyhledat profil" Margin="8,0,0,0" Click="searchButton_Click" Width="130" />
+        <StackPanel Orientation="Horizontal" Margin="0" Width="268" >
+            <TextBox x:Name="profileIDLabel" Style="{DynamicResource LeftRountedTextBox}" Width="134" />
+            <Button Content="Vyhledat profil" Click="searchButton_Click" Style="{DynamicResource RightRountedButton}" Height="25" VerticalAlignment="Top" Width="134" />
         </StackPanel>
 
-        <ComboBox x:Name="profilesComboBox" SelectionChanged="profilesComboBox_SelectionChanged" DropDownOpened="profilesComboBox_DropDownOpened" Width="268" Margin="0,8,0,8" HorizontalAlignment="Center" />
+        <ComboBox x:Name="profilesComboBox" SelectionChanged="profilesComboBox_SelectionChanged" DropDownOpened="profilesComboBox_DropDownOpened" Width="268" Margin="0" HorizontalAlignment="Center" />
 
-        <Button Click="newProfile_Click" Padding="16,0,16,0" Width="268" Content="Vytvořit nový profil" />
+        <Button Click="newProfile_Click" Style="{DynamicResource FullRountedButton}" Width="268" Content="Vytvořit nový profil" />
 
-        <Button x:Name="addToDatabaseButton" Click="addToDatabase_Click" Padding="16,0,16,0" Margin="0,8,0,0" Width="268" Content="Přidat do online databáze" />
+        <Button x:Name="addToDatabaseButton" Click="addToDatabase_Click" Style="{DynamicResource FullRountedButton}" Padding="16,0,16,0" Margin="0,8,0,0" Width="268" Content="Přidat do online databáze" />
 
-        <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
+        <StackPanel Orientation="Vertical" Margin="0,16,0,0" HorizontalAlignment="Center" Width="294">
             <TextBlock Text="Citlivost myši" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" Margin="0,0,0,8" />
             <Slider x:Name="mouseSpeedSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="mouseSpeedSlider_ValueChanged" Minimum="0" Maximum="20" TickFrequency="1"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="mouseSpeedValueTextBox" Margin="0,0,16,0" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetMouseSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                <TextBox x:Name="mouseSpeedValueTextBox" Style="{DynamicResource LeftRountedTextBox}" TextChanged="mouseSpeedValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetMouseSpeed_Click" Style="{DynamicResource RightRountedButton}" Width="188" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
+        <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Center" Width="294">
             <TextBlock Text="Citlivost kolečka myši" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" />
             <TextBlock Text="Umožňuje uživateli nastavit, o kolik řádků textu se posunete při otáčení scrollovacím kolečkem myši." Width="268" Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="scrollSpeedValueTextBox" Margin="0,0,16,0" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetScrollSpeed_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                <TextBox x:Name="scrollSpeedValueTextBox" Style="{DynamicResource LeftRountedTextBox}" TextChanged="scrollSpeedValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetScrollSpeed_Click" Style="{DynamicResource RightRountedButton}" Width="188" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="0,16,0,16" HorizontalAlignment="Center" Width="294">
+        <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Center" Width="294">
             <TextBlock Text="Rychlost dvojkliku" HorizontalAlignment="Center" FontWeight="Light" FontSize="16" />
             <TextBlock Text="Umožňuje uživateli nastavit maximální  časovou prodlevu mezi prvním a druhým kliknutím (v milisekundách)." Width="268" Margin="0,4,0,8" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" />
             <Slider x:Name="doubleClickTimeSlider" Width="268" HorizontalAlignment="Center" Margin="0,0,0,8" ValueChanged="doubleClickTimeSlider_ValueChanged" Minimum="0" Maximum="5000" TickFrequency="100"  IsSnapToTickEnabled="True" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="doubleClickTimeValueTextBox" Margin="0,0,16,0" TextChanged="doubleClickTimeValueTextBox_TextChanged" Width="80" />
-                <Button Click="resetDoubleClickTime_Click" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
+                <TextBox x:Name="doubleClickTimeValueTextBox" Style="{DynamicResource LeftRountedTextBox}" TextChanged="doubleClickTimeValueTextBox_TextChanged" Width="80" />
+                <Button Click="resetDoubleClickTime_Click"  Style="{DynamicResource RightRountedButton}" Width="188" Padding="16,0,16,0" Content="Obnovit výchozí nastavení" />
             </StackPanel>
         </StackPanel>
         
